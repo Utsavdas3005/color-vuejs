@@ -1,0 +1,140 @@
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<style>
+body {
+  background-color: hsl(155, 98%, 48%);
+  color: rgb(24, 23, 23);
+}
+#app { 
+    font-family:  sans-serif;
+}
+h1 { 
+  text-transform: uppercase;
+  font-size: 25px; 
+  margin-left: 30px;
+}
+.alpha-tag {
+  border-radius: 10px;
+  box-shadow: 2px 3px #2e2c2c;
+  height: 40px;
+  width: 50px;
+  background-color: #ccc; 
+  text-align: center;
+  padding-top: 10px;
+  margin: 30px;
+  color: #FFF;
+  font-size: 25px;
+  text-transform: uppercase;
+}
+.value { 
+  margin-top: -70px; 
+  margin-left: 110px; 
+  font-size: 20px; 
+}
+
+
+</style>
+<div id="app">
+  <section class="section">
+    <h3 class="title is-3" v-color:red>
+      {{ message }}
+    </h3>
+    <h3 class="title is-3" v-color:blue>
+      {{ message }}
+    </h3>
+    <h3 class="title is-3" v-color:green>
+      {{ message }}
+    </h3>
+    <h3 class="title is-3" v-color:orange>
+      {{ message }}
+    </h3>
+    <h3 class="title is-3" v-color:purple>
+      {{ message }}
+    </h3>
+    <input class="input" type="text" v-model="message" />
+  </section>
+
+<p>-------------------------------------Another Example------------------------------</p>
+
+
+    <h1> {{Gmail}} </h1>
+   
+    <div v-for="gmail in gmailname">
+    <div class="alpha-tag" v-colorswatch> {{ gmail.name | removeAsterisk | firstLetter  }} </div>
+    <div class="value"> {{ gmail.name | removeAsterisk  }} </div>
+    </div>
+
+</div>
+
+<script>
+Vue.directive("color", {
+    bind(el, binding, vnode) {
+        el.style.color = binding.arg;
+    }
+});
+
+
+
+Vue.filter('removeAsterisk', function (value) {
+  return value.replace('*', '');
+})
+
+Vue.filter('firstLetter', function (value) {
+    return value.charAt(0);
+})
+
+Vue.directive('colorswatch', function(el, binding) {
+let colors = [
+        { id: 1, name: "#0bcf5c" }, 
+        { id: 2, name: "#8074c2" },
+        { id: 3, name: "#51be03" },
+        { id: 4, name: "#c1e21a" },
+        { id: 5, name: "#d96622" },
+        { id: 6, name: "#8f2e9d" },
+        { id: 7, name: "#eb556b" },
+        { id: 8, name: "#43ccb2" },
+        { id: 9, name: "#2704fb" },
+        { id: 10, name: "#9a0a47" },
+        { id: 11, name: "#6c0291" },
+        { id: 12, name: "#966a5b" },
+        { id: 13, name: "red" },
+    ];
+    
+    
+    function getRandomIntInclusive(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;  
+}
+function getRandomNumberBetween(min,max){
+    return Math.floor(Math.random()*(max-min+1)+min);
+}
+    let randomId = getRandomNumberBetween(1,13);
+    let color = colors.find( p=>p.id == randomId);
+    
+    return el.style.backgroundColor = color.name;
+})
+
+
+new Vue({
+    el: "#app",
+    data: {
+        message: "Vue JS",
+        gmailname: [
+        {id: 1, name: '*Utsav'},
+        {id: 2, name: '*Sam'},
+        {id: 3, name: '*Ram'},
+        {id: 4, name: '*Bob'},
+        {id: 5, name: '*BMW'},
+             
+        
+      ],
+    Gmail: "Gmail Account Random Color Generator",
+  
+    },
+
+
+   
+  
+});
+</script>
